@@ -3,23 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:travel_app/model/admin_model.dart';
-import 'package:travel_app/model/comment.dart';
-import 'package:travel_app/model/fav_model.dart';
-import 'package:travel_app/model/profilemodel.dart';
-import 'package:travel_app/model/shedule_model.dart';
-import '../splash/splash_screen.dart';
-import 'model/signin_model.dart';
-import 'screens/navBar.dart';
-bool? isloggedin;
+import 'package:travel_app/data/model/admin_model.dart';
+import 'package:travel_app/data/model/comment.dart';
+import 'package:travel_app/data/model/fav_model.dart';
+import 'package:travel_app/data/model/profilemodel.dart';
+import 'package:travel_app/data/model/shedule_model.dart';
+import 'package:travel_app/data/model/signin_model.dart';
+import 'package:travel_app/presentation/screens/navbar.dart';
+import 'package:travel_app/presentation/splash/splash_screen.dart';
+
+
 String? loggedInUsername;
 String? loggedUserId;
 Future <void> main()async{
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); 
   await Hive.initFlutter();
   Hive.registerAdapter(SignInModelAdapter()); 
   Hive.registerAdapter(AdminModelAdapter());
-  Hive.registerAdapter(SheduleTripModeAdapter());
+  Hive.registerAdapter(SheduleTripModeAdapter()); 
   Hive.registerAdapter(FavModelAdapter());
   Hive.registerAdapter(ProfileModelAdapter());
   Hive.registerAdapter(CommentModelAdapter());
@@ -29,7 +30,7 @@ Future <void> main()async{
   await Hive.openBox <SheduleTripMode>('sheduleTrip');
   await Hive.openBox <FavModel>('favorite'); 
   await Hive.openBox <ProfileModel>('profile');
-  await Hive.openBox <CommentModel>('comment');
+  await Hive.openBox <CommentModel>('comment'); 
 
   SharedPreferences prefs = await SharedPreferences.getInstance(); 
   bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
